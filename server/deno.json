@@ -1,0 +1,11 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-net --unstable-kv --watch main.ts"
+  },
+  "imports": {
+    "@oak/oak": "jsr:@oak/oak@^17.1.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "zod": "npm:zod@^3.23.8",
+    "x/cors": "https://deno.land/x/cors"
+  }
+}
