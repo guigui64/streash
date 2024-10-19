@@ -90,7 +90,7 @@ app.use(oakCors({ origin: "*" }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen({ port: 9876 });
+app.listen({ port: 8000 });
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
