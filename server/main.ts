@@ -21,6 +21,7 @@ router.post("/start", async (ctx) => {
   while (await isUsed(id)) {
     id = randomID();
     if (i-- == 0) {
+      console.error("Too many tries to generate an unused id");
       ctx.response.status = 500;
       return;
     }
@@ -39,6 +40,7 @@ router.get("/match/:id", async (ctx) => {
     kv.get(["score", id]),
   ]);
   if (cfgRes.value === null) {
+    console.error('Config for id "' + id + '" not found');
     ctx.response.status = 404;
     return;
   }
@@ -51,6 +53,7 @@ router.post("/score/:id", async (ctx) => {
   const id = ctx.params.id;
   const res = scoreSchema.safeParse(await ctx.request.body.json());
   if (!res.success) {
+    console.error(res.error);
     ctx.response.status = 400;
     ctx.response.body = res.error;
     return;
@@ -65,6 +68,7 @@ router.get("/score/:id", async (ctx) => {
   const id = ctx.params.id;
   const res = await kv.get(["score", id]);
   if (res.value === null) {
+    console.error('Score for id "' + id + '" not found');
     ctx.response.status = 404;
     return;
   }
@@ -90,6 +94,7 @@ app.use(oakCors({ origin: "*" }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+console.log("Listening on port 8000");
 app.listen({ port: 8000 });
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
