@@ -5,6 +5,7 @@ import type { Set } from "./types";
 function cfg(bo: 1 | 3 | 5 = 5, p: number = 11, diff: 1 | 2 = 2) {
   return {
     players: ["p1", "p2"],
+    toss: 0 as const,
     umpire: "u1",
     format: {
       nbSets: bo,
